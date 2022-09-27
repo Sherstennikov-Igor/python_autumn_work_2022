@@ -4,8 +4,8 @@ import random
 
 mass = []
 
-for i in range (10):
-    mass.append(random.randint(1,100))
+for i in range(10):
+    mass.append(random.randint(1, 100))
 print(mass)
 
 print("Увеличение каждого элемента на 1 ")
@@ -16,6 +16,3 @@ for i in mass:
     mass[index] = i
     index = index + 1
 print(mass)
-
-
-

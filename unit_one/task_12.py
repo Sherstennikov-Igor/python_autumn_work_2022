@@ -34,12 +34,12 @@ mass = float(input("Введите массу тела:"))
 
 match unit:
     case 1:
-        print("Масса тела ",mass, "кг")
+        print("Масса тела ", mass, "кг")
     case 2:
-        print("Масса тела ",mass/1000000, "кг")
+        print("Масса тела ", mass/1000000, "кг")
     case 3:
-        print("Масса тела ",mass/1000, "кг")
+        print("Масса тела ", mass/1000, "кг")
     case 4:
-        print("Масса тела ",mass*1000, "кг")
+        print("Масса тела ", mass*1000, "кг")
     case 5:
-        print("Масса тела ",mass*100, "кг")
+        print("Масса тела ", mass*100, "кг")
