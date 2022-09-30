@@ -1,0 +1,12 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <title> ? </title>
+  <meta charset=?>
+ </head>
+ <body onload="alert(?)">
+ 
+  <p>?</p>
+
+ </body>
+</html>
