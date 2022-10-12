@@ -24,20 +24,19 @@
 # # доступ к элементам двухмерного массива
 # print(game_field[i][j])
 
-
-import random
+from random import randint
 
 game_field = []
-rows = 5
-kolumns = 5
+rows = 5        # Число строк на поле
+kolumns = 5     # Число колонок на поле
 
 for row in range(0, rows):
-    line = [(lambda kol: random.randint(0, 1))(kol) for kol in range(0, kolumns)]
+    line = [(lambda: randint(0, 1))() for kol in range(0, kolumns)]
     game_field.append(line)
 
 
 while any(pos == 1 for pos, *_ in game_field):
-    print(game_field)
+    for i in game_field: print(i)
     i, j = int(input("Наводка по Х: ")), int(input("Наводка по Y: "))
     if game_field[i][j] == 1:
         print("Есть пробитие")
@@ -47,3 +46,5 @@ while any(pos == 1 for pos, *_ in game_field):
     else:
         print("Поле пустое")
         game_field[i][j] = "*"
+
+print("Игра закончена")
