@@ -8,10 +8,7 @@ from random import randint
 
 
 def field_gen(rows=5, kolumns=5):
-    res = []
-    for row in range(0, rows):
-        line = [(lambda: randint(0, 1))() for _ in range(0, kolumns)]
-        res.append(line)
+    res = [[randint(0, 1) for _ in range(kolumns)] for _ in range(rows)]
     return res
 
 
@@ -20,9 +17,11 @@ def count_ship(field):
     return line.count(1)
 
 
-game_field = field_gen(10, 10)
+game_field = field_gen(3, 3)
 print(game_field)
 print(count_ship(game_field))
+
+
 
 print("\n\nАнализ статистики рандомайзера")
 statistic = {}

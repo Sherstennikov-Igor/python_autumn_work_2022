@@ -15,11 +15,7 @@ for row in matrix:
         summ_1 += did
 print(f"Вариант через циклы {summ_1}")
 
-
-summ = 0
 # summ = [(lambda digit: digit + 1)(digit) for row in matrix for digit in row]
 line = [digit for row in matrix for digit in row]
-for i in line:
-    summ += i
-print(f"Вариант через генератор {summ}")
+print(f"Вариант через генератор {sum(line)}")
 
