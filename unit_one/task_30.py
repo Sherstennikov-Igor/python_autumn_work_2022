@@ -5,7 +5,7 @@
 # >>> matrix = [[1, 2, 3], [4, 5, 6]]
 # >>> msum(matrix)
 # 21
-from functools import reduce
+
 
 matrix = [[1, 2, 3, 5, 7], [4, 5, 6, 77]]
 
@@ -15,7 +15,10 @@ for row in matrix:
         summ_1 += did
 print(f"Вариант через циклы {summ_1}")
 
-# summ = [(lambda digit: digit + 1)(digit) for row in matrix for digit in row]
-line = [digit for row in matrix for digit in row]
-print(f"Вариант через генератор {sum(line)}")
 
+def matr_summ(matr):
+    digit = [digits for rows in matr for digits in rows]
+    return sum(digit)
+
+
+print(f"Вариант через генератор {matr_summ(matrix)}")
