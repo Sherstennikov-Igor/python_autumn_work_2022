@@ -16,9 +16,9 @@
 # При выборе 1. начинается новая игра.
 # При выборе 2. пользователю выводится список всех сохраненных игр(происходит десериализация).
 # Из них он выберает нужную, после чего загружается состояние игры на момент сохранения.
+
 import pickle
 
-status_menu = 0
 secret = 0
 lives = 0
 my_digit = 1
@@ -40,7 +40,6 @@ def new_game():
 
 
 def menu():
-    global status_menu
     print("1. Новая Игра\n"
           "2. Продолжить игру\n"
           "3. Сохранить игру\n"
@@ -108,6 +107,7 @@ def game_save():
 
 def game_load():
     save_db = save_file()
+    # print(save_db)
     for save in save_db:
         save_info = f"{save['save_name']} {save['save_time']}"
         print(save_info)
@@ -120,7 +120,6 @@ def game_load():
             my_digit = save["last_digit"]
             print(f"Игра восстановлена {save['save_name']}")
             compar()
-
     game_logic()
 
 
@@ -151,9 +150,3 @@ def game_logic():
 
 
 menu()
-
-# print("\n\n________\nСТАТИСТИКА ПОСЛЕ ИГРЫ\n________\n")
-# print(f"Последнее действие в меню {status_menu}")
-# print(f"Загаданное число было {secret}")
-# print(f"Осталось жизней {lives}")
-# print(f"Последнее загаданное число {my_digit}")
