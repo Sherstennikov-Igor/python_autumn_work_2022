@@ -14,7 +14,7 @@ from random import randint as rand
 class Char:
     # counter = 0
     def __init__(self, name, lvl, char_type, race):
-        self.id = 0
+        self.id = rand(0, 100500)
         self.name = name
         self.lvl = lvl
         self.max_hp = rand(5, 15) * lvl
@@ -27,10 +27,13 @@ class Char:
 
     def kill(self, dmg):
         self.hp -= dmg
-        if self.hp < 0:
+
+
+    def __del__(self):
+        if self.hp <= 0:
+            self.hp = 0
             print(f"{self.name} повержен")
-            self.__del__()
-            # Char.counter -= 1
+
     def __sub__(self, other):
         print(f"{self.name} наносит {self.dmg} урона по {other.name}")
         other.kill(self.dmg)
@@ -40,6 +43,8 @@ class Char:
             self.kill(other.dmg)
             print(f"У {self.name} осталось {self.hp} здоровья из {self.max_hp}")
 
+
+
     def __repr__(self):
         return f'''
         {self.name} {self.lvl} уровня. ID = {self.id}.
@@ -47,26 +52,20 @@ class Char:
         Тип персонажа - {self.char_type}. Рассы - {self.race}.
                 '''
 
+class Battle:
+    def __init__(self, char_1, char_2):
+        self.char_1 = char_1
+        self.char_2 = char_2
+        print(f"В битву вступают {char_1.__repr__()} против {char_2.__repr__()}")
+    def battle(self):
+        while self.char_1.hp > 0 and self.char_2.hp > 0:
+            hero - enemy_1
+
 
 hero = Char("Ivan", 2, "Warrior", "Human")
-enemy_1 = Char("Rat", 3, "Anumal", "Neutral")
+enemy_1 = Char("Rat", 1, "Anumal", "Neutral")
 enemy_2 = Char("Elephant", 1, "Anumal", "Neutral")
 
-print(f"Сражаются: {hero.__repr__()} Против {enemy_1.__repr__()}")
-
-while hero.hp or enemy_1.hp:
-    hero - enemy_1
-
-# list_char = [Hero, enemy_1, enemy_2]
-# while len(list_char) > 1:
-#     print(f"Число героев до ударов {len(list_char)}")
-#     list_char[0] - list_char[1]
-#
-#
-#     if list_char[0].hp < 0:
-#         print("Игра окончена!")
-#         break
-#     elif list_char[1].hp < 0:
-#         list_char.pop(1)
-#     print(f"Число героев после ударов {len(list_char)}")
+fight = Battle(hero, enemy_1)
+fight.battle()
 
