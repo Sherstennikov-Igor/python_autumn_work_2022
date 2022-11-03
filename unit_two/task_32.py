@@ -11,15 +11,16 @@
 #  здоровья первого объекта урона наносимого вторым объектом
 from random import randint as rand
 
+
 class Char:
     # counter = 0
     def __init__(self, name, lvl, char_type, race):
         self.id = rand(0, 100500)
         self.name = name
         self.lvl = lvl
-        self.max_hp = rand(5, 15) * lvl
+        self.max_hp = rand(50, 150) * lvl
         self.hp = self.max_hp
-        self.dmg = rand(1, 4) * lvl
+        self.base_dmg = rand(1, 2) * lvl
         self.char_type = char_type
         self.race = race
         self.xp_gen = self.hp
@@ -28,35 +29,46 @@ class Char:
     def kill(self, dmg):
         self.hp -= dmg
 
-
     def __del__(self):
         if self.hp <= 0:
             self.hp = 0
             print(f"{self.name} повержен")
 
+    def dmg_range(self, char_type):
+        match char_type:
+            case "Warrior":
+                dmg = self.base_dmg*rand(1, 3)
+            case "Mage":
+                dmg = self.base_dmg
+            case "Anumal":
+                dmg = self.base_dmg*rand(1, 2)
+            case "LoL":
+                dmg = self.base_dmg*rand(1, 100)
+        return dmg
+
     def __sub__(self, other):
-        print(f"{self.name} наносит {self.dmg} урона по {other.name}")
-        other.kill(self.dmg)
+        print(f"{self.name} наносит {self.dmg_range(self.char_type)} урона по {other.name}")
+        other.kill(self.dmg_range(self.char_type))
         if other.hp > 0:
             print(f"У {other.name} осталось {other.hp} здоровья из {other.max_hp}")
-            print(f"{other.name} наносит {other.dmg} урона по {self.name}")
-            self.kill(other.dmg)
+            print(f"{other.name} наносит {other.base_dmg} урона по {self.name}")
+            self.kill(other.base_dmg)
             print(f"У {self.name} осталось {self.hp} здоровья из {self.max_hp}")
-
-
 
     def __repr__(self):
         return f'''
         {self.name} {self.lvl} уровня. ID = {self.id}.
-        Со здоровьем {self.hp} HP и уроном {self.dmg} единиц.
+        Со здоровьем {self.hp} HP и базовым уроном {self.base_dmg} единиц.
         Тип персонажа - {self.char_type}. Рассы - {self.race}.
                 '''
+
 
 class Battle:
     def __init__(self, char_1, char_2):
         self.char_1 = char_1
         self.char_2 = char_2
         print(f"В битву вступают {char_1.__repr__()} против {char_2.__repr__()}")
+
     def battle(self):
         while self.char_1.hp > 0 and self.char_2.hp > 0:
             hero - enemy_1
@@ -68,4 +80,3 @@ enemy_2 = Char("Elephant", 1, "Anumal", "Neutral")
 
 fight = Battle(hero, enemy_1)
 fight.battle()
-
