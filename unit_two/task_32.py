@@ -19,9 +19,9 @@ class Char:
         self.id = rand(0, 100500)
         self.name = name
         self.lvl = lvl
-        self.max_hp = rand(50, 150) * lvl
+        self.max_hp = rand(20, 30) * lvl
         self.hp = self.max_hp
-        self.base_dmg = rand(1, 1) * lvl
+        self.base_dmg = rand(2, 4) * lvl
         self.char_type = char_type
         self.race = race
         self.xp_gen = self.hp
@@ -52,7 +52,7 @@ class Char:
         hit_dmg = self.dmg_range(self.char_type)
         dodge = choices([0, 1], weights=[1 - other.dodge / 100, other.dodge / 100])[0]
         if dodge:
-            print(f"{self.name} нытается нанести удар по {other.name}\n"
+            print(f"{self.name} пытается нанести удар по {other.name}\n"
                   f"Но подлый {other.name} увернулся от удара")
         else:
             print(f"{self.name} наносит {hit_dmg} урона по {other.name}")
@@ -62,7 +62,8 @@ class Char:
             hit_dmg = other.dmg_range(other.char_type)
             dodge = choices([0, 1], weights=[1 - self.dodge / 100, self.dodge / 100])[0]
             if dodge:
-                print(f"Но храбрый {self.name} увернулся от удара")
+                print(f"{other.name} пытается нанести удар по {self.name}\n"
+                      f"Но храбрый {self.name} увернулся от удара")
             else:
                 self.kill(hit_dmg)
                 print(f"{other.name} наносит {hit_dmg} урона по {self.name}\n"
