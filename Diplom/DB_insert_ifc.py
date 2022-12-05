@@ -1,6 +1,5 @@
 import os
 from time import time
-
 import ifcopenshell
 import psycopg2
 from psycopg2 import Error
@@ -16,7 +15,7 @@ def open_file_ifc(path='.'):
             print("Обработка файла", file)
             ifc_file = ifcopenshell.open(file)
             insert_db(ifc_file)
-            print("\t\t\t\tЗатрачено времени", (time() - time_file))
+            print("\t\t\t\tЗатрачено времени на чтение файлов", (time() - time_file))
 
 
 def insert_db(ifc_file):
@@ -83,6 +82,7 @@ def insert_relation(id_element, id_pset):
 
 def statistic():
     """Функция вывода статистики по результатам работы вставки данных в БД"""
+    time_statistic = time()
     if count_element:
         print(f"В базу добавлено {count_element}"
               f" из {count_element + count_error_element} элементов.")
@@ -112,7 +112,7 @@ def statistic():
     if count_error_relation > 0:
         print(f"В базе уже содержатся {count_error_property_set}"
               f" из {count_relation + count_error_property_set} импортируемых связей элементов и наборов параметров.\n")
-
+    print("\t\t\t\tЗатрачено времени на вставку в базу", (time() - time_statistic))
 
 count_element = 0
 count_error_element = 0
@@ -141,21 +141,6 @@ try:
     # Выполнение SQL-запроса
     open_file_ifc()
     statistic()
-
-    cursor.execute('''SELECT class_ifc, pset_name, prop_name, prop_value
-    FROM relation_element_pset
-    JOIN element ON relation_element_pset.id_element = element.id_guid_element
-    JOIN propertyset ON relation_element_pset.id_pset = propertyset.id_guid_pset
-    JOIN property ON propertyset.id_guid_pset = property.id_pset''')
-
-    print(f"\n============================="
-          f"\nВывод информации по элементам"
-          f"\n============================="
-          f"\n")
-
-    record = cursor.fetchall()
-    for lst in record:
-        print(lst)
 
 except (Exception, Error) as error:
     print("Ошибка при работе с PostgreSQL", error)
